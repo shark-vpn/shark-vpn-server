@@ -2,10 +2,17 @@
 
 
 ```sh
+# 编辑这个文件:
+vim /etc/sysctl.conf
+# 将文件里的这行取消注释
+# net.ipv4.ip_forward = 1
+# 然后执行这条命令:
+sysctl -p
+# 如果有看到 net.ipv4.ip_forward = 1 说明成功了.
+
 # config
 dhclient -v
 ip tuntap add tun0 mode tun
-tunctl -n -t tun0 -u root
 ip link set dev tun0 up
 ifconfig tun0 192.168.194.224 netmask 255.255.255.0 promisc
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
